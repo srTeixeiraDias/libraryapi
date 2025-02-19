@@ -30,4 +30,15 @@ public class Autor {
 
     @OneToMany(mappedBy = "autor")
     private List<Livro> livros;
+
+    @Override
+    public String toString() {
+        return "Autor{" +
+                "id=" + id +
+                ", nome='" + nome + '\'' +
+                ", dataNascimento=" + dataNascimento +
+                ", nacionalidade='" + nacionalidade + '\'' +
+                ", livros=" + livros +
+                '}';
+    }
 }
