@@ -35,9 +35,20 @@ public class Livro {
     @Enumerated(EnumType.STRING)
     private Genero genero;
 
-    @ManyToOne
+    @ManyToOne//(cascade = CascadeType.ALL)
     @JoinColumn(name="id_autor")
     private Autor autor;
 
-
+    @Override
+    public String toString() {
+        return "Livro{" +
+                "id=" + id +
+                ", isbn='" + isbn + '\'' +
+                ", titulo='" + titulo + '\'' +
+                ", dataPublicacao=" + dataPublicacao +
+                ", preco=" + preco +
+                ", genero=" + genero +
+                ", autor=" + autor +
+                '}';
+    }
 }
