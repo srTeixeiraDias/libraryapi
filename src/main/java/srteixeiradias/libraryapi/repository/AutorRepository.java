@@ -1,7 +1,7 @@
 package srteixeiradias.libraryapi.repository;
 
 import org.springframework.data.jpa.repository.JpaRepository;
-import srteixeiradias.libraryapi.model.Autor;
+import srteixeiradias.libraryapi.domain.model.Autor;
 
 import java.util.UUID;
 
