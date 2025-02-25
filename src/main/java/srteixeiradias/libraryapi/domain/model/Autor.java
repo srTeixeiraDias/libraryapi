@@ -1,13 +1,18 @@
 package srteixeiradias.libraryapi.domain.model;
 
 import jakarta.persistence.*;
+import org.springframework.data.annotation.CreatedDate;
+import org.springframework.data.annotation.LastModifiedDate;
+import org.springframework.data.jpa.domain.support.AuditingEntityListener;
 
 import java.time.LocalDate;
+import java.time.LocalDateTime;
 import java.util.List;
 import java.util.UUID;
 
 @Entity
 @Table(name= "autor", schema = "public")
+@EntityListeners(AuditingEntityListener.class)
 public class Autor {
 
     @Id
@@ -23,6 +28,17 @@ public class Autor {
 
     @Column(name= "nacionalidade", length = 50, nullable = false)
     private String nacionalidade;
+
+    @CreatedDate
+    @Column(name= "created_at")
+    private LocalDateTime createdAt;
+
+    @LastModifiedDate
+    @Column(name= "updated_at")
+    private LocalDateTime updatedAt;
+
+    @Column(name= "user_id")
+    private UUID userId;
 
     @OneToMany(mappedBy = "autor")
     private List<Livro> livros;
@@ -57,6 +73,30 @@ public class Autor {
 
     public void setNacionalidade(String nacionalidade) {
         this.nacionalidade = nacionalidade;
+    }
+
+    public LocalDateTime getCreatedAt() {
+        return createdAt;
+    }
+
+    public void setCreatedAt(LocalDateTime createdAt) {
+        this.createdAt = createdAt;
+    }
+
+    public LocalDateTime getUpdatedAt() {
+        return updatedAt;
+    }
+
+    public void setUpdatedAt(LocalDateTime updatedAt) {
+        this.updatedAt = updatedAt;
+    }
+
+    public UUID getUserId() {
+        return userId;
+    }
+
+    public void setUserId(UUID userId) {
+        this.userId = userId;
     }
 
     @Override

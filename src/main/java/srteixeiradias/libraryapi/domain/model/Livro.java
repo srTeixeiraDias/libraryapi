@@ -1,16 +1,19 @@
 package srteixeiradias.libraryapi.domain.model;
 
 import jakarta.persistence.*;
-import lombok.Getter;
-import lombok.Setter;
+import org.springframework.data.annotation.CreatedDate;
+import org.springframework.data.annotation.LastModifiedDate;
+import org.springframework.data.jpa.domain.support.AuditingEntityListener;
 import srteixeiradias.libraryapi.domain.enuns.GeneroLivro;
 
 import java.math.BigDecimal;
 import java.time.LocalDate;
+import java.time.LocalDateTime;
 import java.util.UUID;
 
 @Entity
 @Table(name= "livro")
+@EntityListeners(AuditingEntityListener.class)
 public class Livro {
 
     @Id
@@ -37,6 +40,17 @@ public class Livro {
     @ManyToOne//(cascade = CascadeType.ALL)
     @JoinColumn(name="id_autor")
     private Autor autor;
+
+    @CreatedDate
+    @Column(name= "created_at")
+    private LocalDateTime createdAt;
+
+    @LastModifiedDate
+    @Column(name= "updated_at")
+    private LocalDateTime updatedAt;
+
+    @Column(name= "user_id")
+    private UUID userId;
 
     public UUID getId() {
         return id;
@@ -92,6 +106,30 @@ public class Livro {
 
     public void setAutor(Autor autor) {
         this.autor = autor;
+    }
+
+    public LocalDateTime getCreatedAt() {
+        return createdAt;
+    }
+
+    public void setCreatedAt(LocalDateTime createdAt) {
+        this.createdAt = createdAt;
+    }
+
+    public LocalDateTime getUpdatedAt() {
+        return updatedAt;
+    }
+
+    public void setUpdatedAt(LocalDateTime updatedAt) {
+        this.updatedAt = updatedAt;
+    }
+
+    public UUID getUserId() {
+        return userId;
+    }
+
+    public void setUserId(UUID userId) {
+        this.userId = userId;
     }
 
     @Override
