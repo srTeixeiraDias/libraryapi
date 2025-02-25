@@ -4,9 +4,9 @@ import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
-import srteixeiradias.libraryapi.model.Autor;
-import srteixeiradias.libraryapi.model.Genero;
-import srteixeiradias.libraryapi.model.Livro;
+import srteixeiradias.libraryapi.domain.enuns.GeneroLivro;
+import srteixeiradias.libraryapi.domain.model.Autor;
+import srteixeiradias.libraryapi.domain.model.Livro;
 
 import java.math.BigDecimal;
 import java.time.LocalDate;
@@ -32,7 +32,7 @@ class LivroRepositoryTests {
         livro.setIsbn("123456");
         livro.setTitulo("A lalala");
         livro.setDataPublicacao(LocalDate.of(2025, 1, 3));
-        livro.setGenero(Genero.FANTASIA);
+        livro.setGeneroLivro(GeneroLivro.FANTASIA);
         livro.setPreco(BigDecimal.valueOf(35,61));
         //livro.setAutor(autor);
 
@@ -56,7 +56,7 @@ class LivroRepositoryTests {
         livro.setIsbn("7654321");
         livro.setTitulo("A cheiro de rato");
         livro.setDataPublicacao(LocalDate.of(1925, 2, 3));
-        livro.setGenero(Genero.MISTERIO);
+        livro.setGeneroLivro(GeneroLivro.MISTERIO);
         livro.setPreco(BigDecimal.valueOf(98,50));
         livro.setAutor(autor);
 
@@ -128,7 +128,7 @@ class LivroRepositoryTests {
 
     @Test
     void testDeletarPorGenero(){
-        livroRepository.deletarPorGenero(Genero.FANTASIA);
+        livroRepository.deletarPorGenero(GeneroLivro.FANTASIA);
     }
 
 }
