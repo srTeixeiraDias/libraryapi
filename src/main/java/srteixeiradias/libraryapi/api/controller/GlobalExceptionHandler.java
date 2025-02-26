@@ -37,6 +37,11 @@ public class GlobalExceptionHandler {
         return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(ApiError.from(ex));
     }
 
+    @ExceptionHandler(value = IllegalArgumentException.class)
+    public ResponseEntity<?> handleIllegalArgumentException(IllegalArgumentException ex){
+        return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(ApiError.from(ex));
+    }
+
 
     record ApiError(String message, List<Error> errors) {
 
@@ -54,7 +59,11 @@ public class GlobalExceptionHandler {
             return new ApiError("Validation error", errors);
         }
 
-        static ApiError from(NotFoundException ex) {
+        static ApiError from(IllegalArgumentException ex){
+            return new ApiError("Parametro invalido: "+ ex.getMessage(), null);
+        }
+
+        static ApiError from(RuntimeException ex) {
             log.error(ex.getMessage(), ex);
             return new ApiError(GENERIC_ERROR_MESSAGE, null);
         }
