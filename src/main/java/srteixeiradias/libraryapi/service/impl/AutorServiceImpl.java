@@ -18,12 +18,12 @@ import java.util.List;
 import java.util.UUID;
 
 @Service
-public class AutorServiceIpml implements AutorService {
+public class AutorServiceImpl implements AutorService {
 
     private final AutorRepository autorRepository;
     private final AutorValidator autorValidator;
 
-    public AutorServiceIpml(AutorRepository autorRepository, AutorValidator autorValidator){
+    public AutorServiceImpl(AutorRepository autorRepository, AutorValidator autorValidator){
 
         this.autorRepository = autorRepository;
         this.autorValidator = autorValidator;

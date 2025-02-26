@@ -7,24 +7,24 @@ import java.math.BigDecimal;
 import java.time.LocalDate;
 import java.util.UUID;
 
-public record LivroGetResponse(
-       UUID id,
-       String isbn,
-       String titulo,
-       LocalDate dataPublicacao,
-       GeneroLivro genero,
-       BigDecimal preco,
-       LivroAutorGetResponse autor
+public record LivroCreateResponse(
+        UUID id,
+        String isbn,
+        String titulo,
+        LocalDate dataPublicacao,
+        GeneroLivro genero,
+        BigDecimal preco,
+        UUID autorId
 ) {
-    public static LivroGetResponse fromEntity(Livro livro) {
-        return new LivroGetResponse(
+    public static LivroCreateResponse fromEntity(Livro livro) {
+        return new LivroCreateResponse(
                 livro.getId(),
                 livro.getIsbn(),
                 livro.getTitulo(),
                 livro.getDataPublicacao(),
                 livro.getGeneroLivro(),
                 livro.getPreco(),
-                LivroAutorGetResponse.from(livro.getAutor())
+                livro.getAutor().getId()
         );
     }
 }
