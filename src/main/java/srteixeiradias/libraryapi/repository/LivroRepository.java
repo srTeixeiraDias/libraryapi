@@ -6,6 +6,7 @@ import org.springframework.data.jpa.repository.Modifying;
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.query.Param;
 import srteixeiradias.libraryapi.domain.enuns.GeneroLivro;
+import srteixeiradias.libraryapi.domain.model.Autor;
 import srteixeiradias.libraryapi.domain.model.Livro;
 
 import java.util.List;
@@ -28,4 +29,6 @@ public interface LivroRepository extends JpaRepository<Livro, UUID> {
     @Transactional
     @Query("delete from Livro l where l.generoLivro = :generoLivro")
     void deletarPorGenero(@Param("generoLivro") GeneroLivro generoLivro);
+
+    boolean existsByAutor(Autor autor);
 }
