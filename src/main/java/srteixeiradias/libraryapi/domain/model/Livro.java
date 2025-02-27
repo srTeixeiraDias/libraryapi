@@ -37,7 +37,7 @@ public class Livro {
     @Enumerated(EnumType.STRING)
     private GeneroLivro generoLivro;
 
-    @ManyToOne//(cascade = CascadeType.ALL)
+    @ManyToOne(fetch = FetchType.LAZY)//(cascade = CascadeType.ALL)
     @JoinColumn(name="id_autor")
     private Autor autor;
 

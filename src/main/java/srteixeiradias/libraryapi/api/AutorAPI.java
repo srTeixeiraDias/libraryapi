@@ -27,10 +27,10 @@ public interface AutorAPI {
     void deleteById(@PathVariable(name = "id") String id);
 
     @GetMapping
-    List<AutorListResponse> list (@RequestParam(value = "nome", required = false) String nome,
+    List<AutorListResponse> list(@RequestParam(value = "nome", required = false) String nome,
                                   @RequestParam(value = "nacionalidade", required = false) String nacionalidade);
 
     @PutMapping("{id}")
-    AutorGetResponse update (@PathVariable(name = "id") String id, @RequestBody @Valid AutorUpdateRequest request);
+    AutorGetResponse update(@PathVariable(name = "id") String id, @RequestBody @Valid AutorUpdateRequest request);
 
 }

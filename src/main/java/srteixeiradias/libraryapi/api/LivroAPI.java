@@ -2,16 +2,21 @@ package srteixeiradias.libraryapi.api;
 
 import jakarta.validation.Valid;
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.*;
 import srteixeiradias.libraryapi.domain.request.LivroCreateRequest;
 import srteixeiradias.libraryapi.domain.response.LivroCreateResponse;
+import srteixeiradias.libraryapi.domain.response.LivroGetResponse;
 
 @RequestMapping("livro")
 public interface LivroAPI {
 
 
     @PostMapping
-    ResponseEntity<LivroCreateResponse> create (@RequestBody @Valid LivroCreateRequest request);
+    ResponseEntity<LivroCreateResponse> create(@RequestBody @Valid LivroCreateRequest request);
+
+    @GetMapping("{id}")
+    LivroGetResponse findById(@PathVariable(name = "id") String id);
+
+    @DeleteMapping("{id}")
+    void deleteById(@RequestBody String id);
 }
