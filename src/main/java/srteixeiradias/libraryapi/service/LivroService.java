@@ -11,4 +11,6 @@ public interface LivroService {
     LivroCreateResponse save(final LivroCreateRequest request);
 
     LivroGetResponse findById(final UUID id);
+
+    void deleteById(final UUID id);
 }

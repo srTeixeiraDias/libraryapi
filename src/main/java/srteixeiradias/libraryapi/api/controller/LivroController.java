@@ -33,6 +33,6 @@ public class LivroController implements LivroAPI {
 
     @Override
     public void deleteById(String id) {
-
+        livroService.deleteById(UUID.fromString(id));
     }
 }

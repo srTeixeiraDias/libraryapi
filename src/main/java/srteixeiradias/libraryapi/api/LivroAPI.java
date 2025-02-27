@@ -1,6 +1,7 @@
 package srteixeiradias.libraryapi.api;
 
 import jakarta.validation.Valid;
+import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 import srteixeiradias.libraryapi.domain.request.LivroCreateRequest;
@@ -18,5 +19,6 @@ public interface LivroAPI {
     LivroGetResponse findById(@PathVariable(name = "id") String id);
 
     @DeleteMapping("{id}")
-    void deleteById(@RequestBody String id);
+    @ResponseStatus(HttpStatus.NO_CONTENT)
+    void deleteById(@PathVariable String id);
 }

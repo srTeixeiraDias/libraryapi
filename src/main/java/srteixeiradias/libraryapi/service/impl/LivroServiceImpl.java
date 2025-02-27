@@ -36,4 +36,12 @@ public class LivroServiceImpl implements LivroService {
                 .map(LivroGetResponse::fromEntity)
                 .orElseThrow(()-> new NotFoundException("Livro com ID: " + id + " não encontrado"));
     }
+
+    @Override
+    public void deleteById(UUID id) {
+        var livro = livroRepository.findById(id)
+                .orElseThrow(()-> new NotFoundException("Livro com ID: " + id + " não encontrado"));
+
+        livroRepository.deleteById(livro.getId());
+    }
 }

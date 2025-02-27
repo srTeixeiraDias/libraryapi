@@ -11,13 +11,13 @@ import java.util.UUID;
 
 public interface AutorService {
 
-    AutorCreateResponse create (final AutorCreateRequest request);
+    AutorCreateResponse create(final AutorCreateRequest request);
 
-    AutorGetResponse findById (final UUID id);
+    AutorGetResponse findById(final UUID id);
 
     void deleteById(final UUID id);
 
     List<AutorListResponse> listAutores(final String nome, final String nacionalidade);
 
-    AutorGetResponse update (final String id, final AutorUpdateRequest request);
+    AutorGetResponse update(final String id, final AutorUpdateRequest request);
 }
