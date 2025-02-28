@@ -24,5 +24,5 @@ public interface LivroAPI {
     void deleteById(@PathVariable String id);
 
     @PutMapping("{id}")
-    LivroGetResponse update(@PathVariable(name = "id") String id, @RequestBody @Valid LivroUpdateRequest request);
+    ResponseEntity<LivroGetResponse> update(@PathVariable(name = "id") String id, @RequestBody @Valid LivroUpdateRequest request);
 }
