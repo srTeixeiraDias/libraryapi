@@ -5,6 +5,7 @@ import srteixeiradias.libraryapi.domain.request.LivroCreateRequest;
 import srteixeiradias.libraryapi.domain.request.LivroUpdateRequest;
 import srteixeiradias.libraryapi.domain.response.LivroCreateResponse;
 import srteixeiradias.libraryapi.domain.response.LivroGetResponse;
+import srteixeiradias.libraryapi.domain.validator.LivroValidator;
 import srteixeiradias.libraryapi.exception.NotFoundException;
 import srteixeiradias.libraryapi.repository.AutorRepository;
 import srteixeiradias.libraryapi.repository.LivroRepository;
@@ -17,10 +18,12 @@ public class LivroServiceImpl implements LivroService {
 
     private final LivroRepository livroRepository;
     private final AutorRepository autorRepository;
+    private final LivroValidator livroValidator;
 
-    public LivroServiceImpl(LivroRepository livroRepository, AutorRepository autorRepository) {
+    public LivroServiceImpl(LivroRepository livroRepository, AutorRepository autorRepository, LivroValidator livroValidator) {
         this.livroRepository = livroRepository;
         this.autorRepository = autorRepository;
+        this.livroValidator = livroValidator;
     }
 
     @Override
@@ -28,7 +31,10 @@ public class LivroServiceImpl implements LivroService {
         final var autor = autorRepository.findById(request.autorId())
                 .orElseThrow(()-> new NotFoundException("Autor com ID: " + request.autorId() + " não encontrado"));
 
-        return LivroCreateResponse.fromEntity(livroRepository.save(request.toEntity(autor)));
+        final var livro = request.toEntity(autor);
+        livroValidator.validate(livro);
+
+        return LivroCreateResponse.fromEntity(livroRepository.save(livro));
     }
 
     @Override
@@ -60,6 +66,8 @@ public class LivroServiceImpl implements LivroService {
         livro.setGeneroLivro(request.generoLivro());
         livro.setPreco(request.preco());
         livro.setAutor(autor);
+
+        livroValidator.validate(livro);
 
         return LivroGetResponse.fromEntity(livroRepository.save(livro));
 

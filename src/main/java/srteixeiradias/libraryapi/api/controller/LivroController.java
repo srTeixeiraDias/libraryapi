@@ -38,8 +38,7 @@ public class LivroController implements LivroAPI {
     }
 
     @Override
-    public ResponseEntity<LivroGetResponse> update(String id, LivroUpdateRequest request) {
-        return ResponseEntity.status(HttpStatus.NO_CONTENT)
-                .body(livroService.update(UUID.fromString(id), request));
+    public LivroGetResponse update(String id, LivroUpdateRequest request) {
+        return livroService.update(UUID.fromString(id), request);
     }
 }

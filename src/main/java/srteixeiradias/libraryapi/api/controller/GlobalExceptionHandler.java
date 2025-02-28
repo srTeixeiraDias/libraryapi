@@ -18,7 +18,7 @@ public class GlobalExceptionHandler {
 
     private static final Logger log = LoggerFactory.getLogger(GlobalExceptionHandler.class);
 
-    private static final String GENERIC_ERROR_MESSAGE = "An error has ocurred";
+    private static final String GENERIC_ERROR_MESSAGE = "Ocorreu um erro";
 
     @ExceptionHandler(value = NotFoundException.class)
     public ResponseEntity<?> handleNotFoundException(final NotFoundException ex){
@@ -54,7 +54,7 @@ public class GlobalExceptionHandler {
                             //Cria um novo objeto Error contendo o nome do campo e a mensagem de erro correspondente
                             new Error(fieldError.getField() + ": " + fieldError.getDefaultMessage()))
                     .toList();
-            return new ApiError("Validation error", errors);
+            return new ApiError("Erro na validação de campos", errors);
         }
 
         static ApiError from(IllegalArgumentException ex){

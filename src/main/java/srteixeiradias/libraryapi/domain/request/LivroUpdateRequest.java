@@ -28,7 +28,7 @@ public record LivroUpdateRequest(
         @NotNull(message = "required field")
         GeneroLivro generoLivro,
 
-        @NotNull(message = "required field")
+
         BigDecimal preco,
 
         @NotNull(message = "required field")
