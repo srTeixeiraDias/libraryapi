@@ -5,6 +5,7 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.RestController;
 import srteixeiradias.libraryapi.api.LivroAPI;
 import srteixeiradias.libraryapi.domain.request.LivroCreateRequest;
+import srteixeiradias.libraryapi.domain.request.LivroUpdateRequest;
 import srteixeiradias.libraryapi.domain.response.LivroCreateResponse;
 import srteixeiradias.libraryapi.domain.response.LivroGetResponse;
 import srteixeiradias.libraryapi.service.LivroService;
@@ -34,5 +35,10 @@ public class LivroController implements LivroAPI {
     @Override
     public void deleteById(String id) {
         livroService.deleteById(UUID.fromString(id));
+    }
+
+    @Override
+    public LivroGetResponse update(String id, LivroUpdateRequest request) {
+        return livroService.update(UUID.fromString(id), request);
     }
 }

@@ -2,6 +2,7 @@ package srteixeiradias.libraryapi.service.impl;
 
 import org.springframework.stereotype.Service;
 import srteixeiradias.libraryapi.domain.request.LivroCreateRequest;
+import srteixeiradias.libraryapi.domain.request.LivroUpdateRequest;
 import srteixeiradias.libraryapi.domain.response.LivroCreateResponse;
 import srteixeiradias.libraryapi.domain.response.LivroGetResponse;
 import srteixeiradias.libraryapi.exception.NotFoundException;
@@ -43,5 +44,24 @@ public class LivroServiceImpl implements LivroService {
                 .orElseThrow(()-> new NotFoundException("Livro com ID: " + id + " não encontrado"));
 
         livroRepository.deleteById(livro.getId());
+    }
+
+    @Override
+    public LivroGetResponse update(UUID id, LivroUpdateRequest request) {
+        var livro = livroRepository.findById(id)
+                .orElseThrow(()-> new NotFoundException("Livro com ID: " + id + " não encontrado"));
+
+        final var autor = autorRepository.findById(request.autorId())
+                .orElseThrow(()-> new NotFoundException("Autor com ID: " + request.autorId() + " não encontrado"));
+
+        livro.setIsbn(request.isbn());
+        livro.setTitulo(request.titulo());
+        livro.setDataPublicacao(request.dataPublicacao());
+        livro.setGeneroLivro(request.generoLivro());
+        livro.setPreco(request.preco());
+        livro.setAutor(autor);
+
+        return LivroGetResponse.fromEntity(livroRepository.save(livro));
+
     }
 }

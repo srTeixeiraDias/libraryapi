@@ -31,4 +31,6 @@ public interface LivroRepository extends JpaRepository<Livro, UUID> {
     void deletarPorGenero(@Param("generoLivro") GeneroLivro generoLivro);
 
     boolean existsByAutor(Autor autor);
+
+
 }
