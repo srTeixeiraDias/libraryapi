@@ -1,16 +1,24 @@
 package srteixeiradias.libraryapi.service.impl;
 
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageImpl;
+import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
+import srteixeiradias.libraryapi.domain.model.Livro;
 import srteixeiradias.libraryapi.domain.request.LivroCreateRequest;
+import srteixeiradias.libraryapi.domain.request.LivroSearchRequest;
 import srteixeiradias.libraryapi.domain.request.LivroUpdateRequest;
 import srteixeiradias.libraryapi.domain.response.LivroCreateResponse;
 import srteixeiradias.libraryapi.domain.response.LivroGetResponse;
+import srteixeiradias.libraryapi.domain.response.LivroSearchResponse;
 import srteixeiradias.libraryapi.domain.validator.LivroValidator;
 import srteixeiradias.libraryapi.exception.NotFoundException;
 import srteixeiradias.libraryapi.repository.AutorRepository;
 import srteixeiradias.libraryapi.repository.LivroRepository;
 import srteixeiradias.libraryapi.service.LivroService;
 
+import java.util.List;
 import java.util.UUID;
 
 @Service
@@ -71,5 +79,22 @@ public class LivroServiceImpl implements LivroService {
 
         return LivroGetResponse.fromEntity(livroRepository.save(livro));
 
+    }
+
+    @Override
+    public Page<LivroSearchResponse> buscarLivros(LivroSearchRequest request) {
+        Pageable pageable = PageRequest.of(
+                request.page() != null ? request.page() : 0,
+                request.size() != null ? request.size() : 2);
+
+        Page<Livro> livros = livroRepository.buscarLivros(request.isbn(),
+                request.titulo(), request.genero(), request.ano(), request.nomeAutor(), pageable);
+
+        List<LivroGetResponse> livroResponses = livros.getContent()
+                .stream()
+                .map(LivroGetResponse::fromEntity)
+                .toList();
+
+        return new PageImpl(livroResponses, pageable, livros.getTotalElements());
     }
 }
