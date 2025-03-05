@@ -6,6 +6,7 @@ import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 import srteixeiradias.libraryapi.domain.model.Livro;
+import srteixeiradias.libraryapi.domain.model.Usuario;
 import srteixeiradias.libraryapi.domain.request.LivroCreateRequest;
 import srteixeiradias.libraryapi.domain.request.LivroSearchRequest;
 import srteixeiradias.libraryapi.domain.request.LivroUpdateRequest;
@@ -16,6 +17,7 @@ import srteixeiradias.libraryapi.domain.validator.LivroValidator;
 import srteixeiradias.libraryapi.exception.NotFoundException;
 import srteixeiradias.libraryapi.repository.AutorRepository;
 import srteixeiradias.libraryapi.repository.LivroRepository;
+import srteixeiradias.libraryapi.secutiry.service.SecurityService;
 import srteixeiradias.libraryapi.service.LivroService;
 
 import java.util.List;
@@ -27,11 +29,13 @@ public class LivroServiceImpl implements LivroService {
     private final LivroRepository livroRepository;
     private final AutorRepository autorRepository;
     private final LivroValidator livroValidator;
+    private final SecurityService securityService;
 
-    public LivroServiceImpl(LivroRepository livroRepository, AutorRepository autorRepository, LivroValidator livroValidator) {
+    public LivroServiceImpl(LivroRepository livroRepository, AutorRepository autorRepository, LivroValidator livroValidator, SecurityService securityService) {
         this.livroRepository = livroRepository;
         this.autorRepository = autorRepository;
         this.livroValidator = livroValidator;
+        this.securityService = securityService;
     }
 
     @Override
@@ -40,6 +44,7 @@ public class LivroServiceImpl implements LivroService {
                 .orElseThrow(()-> new NotFoundException("Autor com ID: " + request.autorId() + " não encontrado"));
 
         final var livro = request.toEntity(autor);
+        livro.setUser(securityService.findUsuarioAutenticado());
         livroValidator.validate(livro);
 
         return LivroCreateResponse.fromEntity(livroRepository.save(livro));
