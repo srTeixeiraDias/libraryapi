@@ -37,8 +37,9 @@ public class Autor {
     @Column(name= "updated_at")
     private LocalDateTime updatedAt;
 
-    @Column(name= "user_id")
-    private UUID userId;
+    @ManyToOne
+    @JoinColumn(name= "user_id")
+    private Usuario user;
 
     @OneToMany(mappedBy = "autor")
     private List<Livro> livros;
@@ -83,10 +84,13 @@ public class Autor {
         return updatedAt;
     }
 
-    public UUID getUserId() {
-        return userId;
+    public Usuario getUser() {
+        return user;
     }
 
+    public void setUser(Usuario user) {
+        this.user = user;
+    }
 
     @Override
     public String toString() {
