@@ -4,6 +4,7 @@ import org.springframework.data.domain.Example;
 import org.springframework.data.domain.ExampleMatcher;
 import org.springframework.stereotype.Service;
 import srteixeiradias.libraryapi.domain.model.Autor;
+import srteixeiradias.libraryapi.domain.model.Usuario;
 import srteixeiradias.libraryapi.domain.request.AutorUpdateRequest;
 import srteixeiradias.libraryapi.domain.response.AutorListResponse;
 import srteixeiradias.libraryapi.domain.validator.AutorValidator;
@@ -12,6 +13,8 @@ import srteixeiradias.libraryapi.domain.request.AutorCreateRequest;
 import srteixeiradias.libraryapi.domain.response.AutorCreateResponse;
 import srteixeiradias.libraryapi.domain.response.AutorGetResponse;
 import srteixeiradias.libraryapi.repository.AutorRepository;
+import srteixeiradias.libraryapi.secutiry.service.SecurityService;
+import srteixeiradias.libraryapi.secutiry.service.impl.SecurityServiceImpl;
 import srteixeiradias.libraryapi.service.AutorService;
 
 import java.util.List;
@@ -22,16 +25,20 @@ public class AutorServiceImpl implements AutorService {
 
     private final AutorRepository autorRepository;
     private final AutorValidator autorValidator;
+    private final SecurityService securityservice;
 
-    public AutorServiceImpl(AutorRepository autorRepository, AutorValidator autorValidator){
+
+    public AutorServiceImpl(AutorRepository autorRepository, AutorValidator autorValidator, SecurityService securityservice){
 
         this.autorRepository = autorRepository;
         this.autorValidator = autorValidator;
+        this.securityservice = securityservice;
     }
     
     @Override
     public AutorCreateResponse create(final AutorCreateRequest request) {
         final var autor = request.toEntity();
+        autor.setUser(securityservice.findUsuarioAutenticado());
         autorValidator.validate(autor);
         return AutorCreateResponse.fromEntity(autorRepository.save(autor));
     }
