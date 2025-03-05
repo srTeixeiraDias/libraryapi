@@ -49,8 +49,9 @@ public class Livro {
     @Column(name= "updated_at")
     private LocalDateTime updatedAt;
 
-    @Column(name= "user_id")
-    private UUID userId;
+    @ManyToOne
+    @JoinColumn(name= "user_id")
+    private Usuario user;
 
     public UUID getId() {
         return id;
@@ -116,10 +117,13 @@ public class Livro {
         return updatedAt;
     }
 
-    public UUID getUserId() {
-        return userId;
+    public Usuario getUser() {
+        return user;
     }
 
+    public void setUser(Usuario user) {
+        this.user = user;
+    }
 
     @Override
     public String toString() {
