@@ -26,9 +26,10 @@ public class SecurityConfiguration {
         return http.csrf(AbstractHttpConfigurer::disable)
                 .httpBasic(Customizer.withDefaults())
                 .authorizeHttpRequests(authorize -> {
-                    authorize.requestMatchers(HttpMethod.GET,"/autores/**" ).hasAnyRole("USER","ADMIN");
-                    authorize.requestMatchers("/autores/**").hasRole("ADMIN");
-                    authorize.requestMatchers("/livro/**").hasAnyRole("USER", "ADMIN");
+                    authorize.requestMatchers("/usuarios").hasRole("TECNICO");
+                    authorize.requestMatchers(HttpMethod.GET,"/autores/**" ).hasAnyRole("GERENTE","OPERADOR");
+                    authorize.requestMatchers("/autores/**").hasRole("GERENTE");
+                    authorize.requestMatchers("/livro/**").hasAnyRole("GERENTE", "OPERADOR");
                     authorize.anyRequest().authenticated();
                 })
                 .build();
