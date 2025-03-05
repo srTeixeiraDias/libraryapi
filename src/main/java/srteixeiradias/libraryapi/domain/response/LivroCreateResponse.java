@@ -14,7 +14,8 @@ public record LivroCreateResponse(
         LocalDate dataPublicacao,
         GeneroLivro genero,
         BigDecimal preco,
-        UUID autorId
+        UUID autorId,
+        UsuarioResponse usuario
 ) {
     public static LivroCreateResponse fromEntity(Livro livro) {
         return new LivroCreateResponse(
@@ -24,7 +25,8 @@ public record LivroCreateResponse(
                 livro.getDataPublicacao(),
                 livro.getGeneroLivro(),
                 livro.getPreco(),
-                livro.getAutor().getId()
+                livro.getAutor().getId(),
+                UsuarioResponse.fromEntity(livro.getUser())
         );
     }
 }

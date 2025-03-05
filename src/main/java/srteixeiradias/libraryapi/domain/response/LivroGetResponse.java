@@ -14,6 +14,7 @@ public record LivroGetResponse(
        LocalDate dataPublicacao,
        GeneroLivro genero,
        BigDecimal preco,
+       UsuarioResponse usuario,
        LivroAutorGetResponse autor
 ) {
     public static LivroGetResponse fromEntity(Livro livro) {
@@ -24,6 +25,7 @@ public record LivroGetResponse(
                 livro.getDataPublicacao(),
                 livro.getGeneroLivro(),
                 livro.getPreco(),
+                UsuarioResponse.fromEntity(livro.getUser()),
                 LivroAutorGetResponse.from(livro.getAutor())
         );
     }
