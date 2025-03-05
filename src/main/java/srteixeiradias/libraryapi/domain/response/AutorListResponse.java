@@ -10,7 +10,7 @@ public record AutorListResponse(
         String nome,
         LocalDate dataNascimento,
         String nacionalidade,
-        UUID userId
+        UsuarioResponse usuario
 ) {
     public static AutorListResponse fromEntity(Autor autor) {
         return new AutorListResponse(
@@ -18,7 +18,7 @@ public record AutorListResponse(
                 autor.getNome(),
                 autor.getDataNascimento(),
                 autor.getNacionalidade(),
-                autor.getUserId()
+                UsuarioResponse.fromEntity(autor.getUser())
         );
     }
 }

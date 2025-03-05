@@ -13,7 +13,7 @@ public record AutorCreateResponse(
         String nacionalidade,
         LocalDateTime createdAt,
         LocalDateTime updatedAt,
-        UUID userId
+        UsuarioResponse usuario
 ) {
     public static AutorCreateResponse fromEntity(Autor autor) {
         return new AutorCreateResponse(
@@ -23,7 +23,7 @@ public record AutorCreateResponse(
                 autor.getNacionalidade(),
                 autor.getCreatedAt(),
                 autor.getUpdatedAt(),
-                autor.getUserId()
+                UsuarioResponse.fromEntity(autor.getUser())
         );
     }
 }

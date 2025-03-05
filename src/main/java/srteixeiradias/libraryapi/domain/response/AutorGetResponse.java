@@ -1,6 +1,7 @@
 package srteixeiradias.libraryapi.domain.response;
 
 import srteixeiradias.libraryapi.domain.model.Autor;
+import srteixeiradias.libraryapi.domain.model.Usuario;
 
 import java.time.LocalDate;
 import java.time.LocalDateTime;
@@ -13,7 +14,7 @@ public record AutorGetResponse(
         String nacionalidade,
         LocalDateTime createdAt,
         LocalDateTime updatedAt,
-        UUID userId
+        UsuarioResponse usuario
 ) {
     public static AutorGetResponse fromEntity(Autor autor) {
         return new AutorGetResponse(
@@ -23,7 +24,7 @@ public record AutorGetResponse(
                 autor.getNacionalidade(),
                 autor.getCreatedAt(),
                 autor.getUpdatedAt(),
-                autor.getUserId()
+                UsuarioResponse.fromEntity(autor.getUser())
         );
     }
 }
