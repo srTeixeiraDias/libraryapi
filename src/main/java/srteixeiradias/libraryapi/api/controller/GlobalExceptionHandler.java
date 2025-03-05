@@ -4,6 +4,7 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.access.AccessDeniedException;
 import org.springframework.web.bind.MethodArgumentNotValidException;
 import org.springframework.web.bind.annotation.ExceptionHandler;
 import org.springframework.web.bind.annotation.RestControllerAdvice;
@@ -40,6 +41,11 @@ public class GlobalExceptionHandler {
         return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(ApiError.from(ex));
     }
 
+    @ExceptionHandler(value = AccessDeniedException.class)
+    public ResponseEntity<?> handleAccesDeniedException(AccessDeniedException ex){
+        return ResponseEntity.status(HttpStatus.FORBIDDEN).body(ApiError.from(ex));
+    }
+
 
     record ApiError(String message, List<Error> errors) {
 
@@ -63,6 +69,12 @@ public class GlobalExceptionHandler {
         }
 
         static ApiError from(NotFoundException ex) {
+            log.error(ex.getMessage(), ex);
+            List<Error> errors = List.of(new Error(ex.getMessage()));
+            return new ApiError(GENERIC_ERROR_MESSAGE, errors);
+        }
+
+        static ApiError from(AccessDeniedException ex) {
             log.error(ex.getMessage(), ex);
             List<Error> errors = List.of(new Error(ex.getMessage()));
             return new ApiError(GENERIC_ERROR_MESSAGE, errors);
