@@ -5,6 +5,7 @@ import org.slf4j.LoggerFactory;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.access.AccessDeniedException;
+import org.springframework.security.core.AuthenticationException;
 import org.springframework.web.bind.MethodArgumentNotValidException;
 import org.springframework.web.bind.annotation.ExceptionHandler;
 import org.springframework.web.bind.annotation.RestControllerAdvice;
@@ -46,6 +47,11 @@ public class GlobalExceptionHandler {
         return ResponseEntity.status(HttpStatus.FORBIDDEN).body(ApiError.from(ex));
     }
 
+    @ExceptionHandler(value = AuthenticationException.class)
+    public ResponseEntity<?> handleAuthenticationException(AuthenticationException ex){
+        return ResponseEntity.status(HttpStatus.NOT_FOUND).body(ApiError.from(ex));
+    }
+
 
     record ApiError(String message, List<Error> errors) {
 
@@ -75,6 +81,12 @@ public class GlobalExceptionHandler {
         }
 
         static ApiError from(AccessDeniedException ex) {
+            log.error(ex.getMessage(), ex);
+            List<Error> errors = List.of(new Error(ex.getMessage()));
+            return new ApiError(GENERIC_ERROR_MESSAGE, errors);
+        }
+
+        static ApiError from(AuthenticationException ex){
             log.error(ex.getMessage(), ex);
             List<Error> errors = List.of(new Error(ex.getMessage()));
             return new ApiError(GENERIC_ERROR_MESSAGE, errors);
