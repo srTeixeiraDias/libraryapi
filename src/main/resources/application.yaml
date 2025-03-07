@@ -13,6 +13,13 @@ spring:
         show_sql: true
         format_sql: true
         ddl-auto: none
+  security:
+    oauth2:
+      client:
+        registration:
+          google:
+            client-id: ${CLIENT-ID}
+            client-secret: ${CLIENT-SECRET}
 logging:
   level:
     org.hibernate.SQL: DEBUG
