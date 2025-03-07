@@ -21,14 +21,14 @@ public class UsuarioServiceImpl implements UsuarioService {
     }
 
     @Override
-    public UsuarioCreateResponse create(UsuarioCreateRequest request) {
+    public UsuarioCreateResponse create(final UsuarioCreateRequest request) {
         final var user = request.toEntity();
         user.setSenha(encoder.encode(request.senha()));
         return UsuarioCreateResponse.fromEntity(usuarioRepository.save(user));
     }
 
     @Override
-    public UsuarioGetResponse findByLogin(String login) {
+    public UsuarioGetResponse findByLogin(final String login) {
         return usuarioRepository.findByLogin(login)
                 .map(UsuarioGetResponse::fromEntity)
                 .orElseThrow(() -> new NotFoundException("Usuario com Login: " + login + "não existe"));
