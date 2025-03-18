@@ -1,5 +1,6 @@
 package srteixeiradias.libraryapi.api;
 
+import jakarta.validation.Valid;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
@@ -11,7 +12,7 @@ import srteixeiradias.libraryapi.domain.response.UsuarioCreateResponse;
 public interface UsuarioAPI {
 
     @PostMapping
-    ResponseEntity<UsuarioCreateResponse> create (@RequestBody UsuarioCreateRequest request);
+    ResponseEntity<UsuarioCreateResponse> create (@RequestBody @Valid UsuarioCreateRequest request);
 
 
 

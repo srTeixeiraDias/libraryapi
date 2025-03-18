@@ -6,13 +6,15 @@ import java.util.UUID;
 
 public record UsuarioResponse(
         String login,
-        UUID id
+        UUID id,
+        String email
 ) {
 
     public static UsuarioResponse fromEntity(Usuario user){
         return new UsuarioResponse(
                 user.getLogin(),
-                user.getId()
+                user.getId(),
+                user.getEmail()
         );
     }
 }

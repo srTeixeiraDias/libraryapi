@@ -10,6 +10,7 @@ public record UsuarioCreateResponse(
         UUID id,
         String login,
         String senha,
+        String email,
         List<String> roles,
         LocalDateTime createdAt,
         LocalDateTime updatedAt
@@ -20,6 +21,7 @@ public record UsuarioCreateResponse(
                 user.getId(),
                 user.getLogin(),
                 user.getSenha(),
+                user.getEmail(),
                 user.getRoles(),
                 user.getCreatedAt(),
                 user.getUpdatedAt()

@@ -27,6 +27,9 @@ public class Usuario {
     @Column(name = "senha")
     private String senha;
 
+    @Column(name = "email")
+    private String email;
+
     @Type(ListArrayType.class)
     @Column(name = "roles", columnDefinition = "varchar[]")
     private List<String> roles;
@@ -85,6 +88,14 @@ public class Usuario {
 
     public void setUpdatedAt(LocalDateTime updatedAt) {
         this.updatedAt = updatedAt;
+    }
+
+    public String getEmail() {
+        return email;
+    }
+
+    public void setEmail(String email) {
+        this.email = email;
     }
 
     @Override

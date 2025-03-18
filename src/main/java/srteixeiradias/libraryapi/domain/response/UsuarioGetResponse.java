@@ -11,6 +11,7 @@ public record UsuarioGetResponse(
         UUID id,
         String login,
         String senha,
+        String email,
         List<String> roles,
         LocalDateTime createdAt,
         LocalDateTime updatedAt
@@ -21,6 +22,7 @@ public record UsuarioGetResponse(
                 user.getId(),
                 user.getLogin(),
                 user.getSenha(),
+                user.getEmail(),
                 user.getRoles(),
                 user.getCreatedAt(),
                 user.getUpdatedAt()
@@ -33,6 +35,7 @@ public record UsuarioGetResponse(
         user.setId(this.id);
         user.setLogin(this.login);
         user.setSenha(this.senha);
+        user.setEmail(this.email);
         user.setRoles(this.roles);
         user.setCreatedAt(this.createdAt);
         user.setUpdatedAt(this.updatedAt);
