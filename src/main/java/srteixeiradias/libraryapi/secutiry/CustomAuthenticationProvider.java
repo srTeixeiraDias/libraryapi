@@ -16,7 +16,8 @@ public class CustomAuthenticationProvider implements AuthenticationProvider {
     private final UsuarioService usuarioService;
     private final PasswordEncoder passwordEncoder;
 
-    public CustomAuthenticationProvider(UsuarioService usuarioService, PasswordEncoder passwordEncoder) {
+    public CustomAuthenticationProvider(final UsuarioService usuarioService,
+                                        final PasswordEncoder passwordEncoder) {
         this.usuarioService = usuarioService;
         this.passwordEncoder = passwordEncoder;
     }

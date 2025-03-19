@@ -13,6 +13,7 @@ import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.security.web.SecurityFilterChain;
 import srteixeiradias.libraryapi.secutiry.CustomUserDatailsService;
+import srteixeiradias.libraryapi.secutiry.SocialLoginSuccessHandler;
 import srteixeiradias.libraryapi.service.UsuarioService;
 
 @Configuration
@@ -20,7 +21,8 @@ import srteixeiradias.libraryapi.service.UsuarioService;
 public class SecurityConfiguration {
 
     @Bean
-    public SecurityFilterChain securityFilterChain(HttpSecurity http) throws Exception{
+    public SecurityFilterChain securityFilterChain(HttpSecurity http,
+                                                   SocialLoginSuccessHandler successHandler) throws Exception{
         return http.csrf(AbstractHttpConfigurer::disable)
                 .httpBasic(Customizer.withDefaults())
                 .authorizeHttpRequests(authorize -> {
@@ -30,7 +32,9 @@ public class SecurityConfiguration {
                     authorize.requestMatchers("/livro/**").hasAnyRole("GERENTE", "OPERADOR");
                     authorize.anyRequest().authenticated();
                 })
-                .oauth2Login(Customizer.withDefaults())
+                .oauth2Login(oAuth2 -> {
+                    oAuth2.successHandler(successHandler);
+                })
                 .build();
     }
 

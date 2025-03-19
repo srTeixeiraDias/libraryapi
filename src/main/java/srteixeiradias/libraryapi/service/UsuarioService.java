@@ -9,4 +9,6 @@ public interface UsuarioService {
     UsuarioCreateResponse create (final UsuarioCreateRequest request);
 
     UsuarioGetResponse findByLogin (final String login);
+
+    UsuarioGetResponse findByEmail (final String email);
 }

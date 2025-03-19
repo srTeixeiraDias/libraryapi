@@ -31,6 +31,15 @@ public class UsuarioServiceImpl implements UsuarioService {
     public UsuarioGetResponse findByLogin(final String login) {
         return usuarioRepository.findByLogin(login)
                 .map(UsuarioGetResponse::fromEntity)
-                .orElseThrow(() -> new NotFoundException("Usuario com Login: " + login + "não existe"));
+                .orElseThrow(() ->
+                        new NotFoundException("Usuario com Login: " + login + "não existe"));
+    }
+
+    @Override
+    public UsuarioGetResponse findByEmail(String email) {
+        return usuarioRepository.findByEmail(email)
+                .map(UsuarioGetResponse::fromEntity)
+                .orElseThrow(() ->
+                        new NotFoundException("Usuario com Email: " + email + "não existe"));
     }
 }
