@@ -22,6 +22,7 @@ public class SecurityConfiguration {
                                                    SocialLoginSuccessHandler successHandler) throws Exception{
         return http.csrf(AbstractHttpConfigurer::disable)
                 .httpBasic(Customizer.withDefaults())
+                .formLogin(Customizer.withDefaults())
                 .authorizeHttpRequests(authorize -> {
                     authorize.requestMatchers("/usuarios").hasRole("TECNICO");
                     authorize.requestMatchers(HttpMethod.GET,"/autores/**" ).hasAnyRole("GERENTE","OPERADOR");

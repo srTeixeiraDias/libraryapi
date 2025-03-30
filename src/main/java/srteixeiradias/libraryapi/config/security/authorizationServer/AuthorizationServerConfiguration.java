@@ -49,15 +49,19 @@ public class AuthorizationServerConfiguration {
 
         // Habilita OAuth2 Resource Server (JWT)
         http.oauth2ResourceServer(oauth2 -> oauth2.jwt(Customizer.withDefaults()));
+        http.formLogin(configurer -> configurer.loginPage("/login"));
 
         return http.build();
     }
 
-    @Bean
-    public AuthorizationServerSettings authorizationServerSettings() {
-        return AuthorizationServerSettings.builder().build();
+    public AuthorizationServerSettings authorizationServerSettings(){
+        return AuthorizationServerSettings.builder()
+                .tokenEndpoint("/oauth2/token")
+                .tokenIntrospectionEndpoint("/oauth2/introspect")
+                .tokenRevocationEndpoint("/oauth2/revoke")
+                .authorizationEndpoint("/oauth2/authorize")
+                .build();
     }
-
 
     //JSON WEB KEY
     @Bean
@@ -93,6 +97,7 @@ public class AuthorizationServerConfiguration {
         return TokenSettings.builder()
                 .accessTokenFormat(OAuth2TokenFormat.SELF_CONTAINED)
                 .accessTokenTimeToLive(Duration.ofMinutes(60))
+                .refreshTokenTimeToLive(Duration.ofMinutes(90))
                 .build();
     }
 
