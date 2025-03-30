@@ -24,6 +24,7 @@ public record ClientGetResponse(
 
     public Client toEntity(){
         Client client = new Client();
+        client.setId(this.id);
         client.setClientId(this.cliendId);
         client.setClientSecret(this.clientSecret);
         client.setRedirectURI(this.redirectURI);
