@@ -30,6 +30,7 @@ public class SecurityConfiguration {
                     authorize.requestMatchers(HttpMethod.GET,"/autores/**" ).hasAnyRole("GERENTE","OPERADOR");
                     authorize.requestMatchers("/autores/**").hasRole("GERENTE");
                     authorize.requestMatchers("/livro/**").hasAnyRole("GERENTE", "OPERADOR");
+                    authorize.requestMatchers("/clients/**").hasAnyRole("GERENTE", "OPERADOR");
                     authorize.anyRequest().authenticated();
                 })
                 .oauth2Login(oAuth2 -> {
