@@ -21,4 +21,14 @@ public record ClientGetResponse(
                 client.getScope()
         );
     }
+
+    public Client toEntity(){
+        Client client = new Client();
+        client.setClientId(this.cliendId);
+        client.setClientSecret(this.clientSecret);
+        client.setRedirectURI(this.redirectURI);
+        client.setScope(this.scope);
+
+        return client;
+    }
 }
