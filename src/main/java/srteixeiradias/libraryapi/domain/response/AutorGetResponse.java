@@ -1,7 +1,6 @@
 package srteixeiradias.libraryapi.domain.response;
 
 import srteixeiradias.libraryapi.domain.model.Autor;
-import srteixeiradias.libraryapi.domain.model.Usuario;
 
 import java.time.LocalDate;
 import java.time.LocalDateTime;
